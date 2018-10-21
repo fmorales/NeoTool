@@ -32,14 +32,14 @@
             this.kryptonPage1 = new ComponentFactory.Krypton.Navigator.KryptonPage();
             this.kryptonPage2 = new ComponentFactory.Krypton.Navigator.KryptonPage();
             this.kryptonHeaderGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonHeaderGroup();
+            this.kryptonTreeView1 = new ComponentFactory.Krypton.Toolkit.KryptonTreeView();
             this.kryptonPanel2 = new ComponentFactory.Krypton.Toolkit.KryptonPanel();
+            this.kryptonButton4 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonButton3 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
+            this.kryptonComboBox1 = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
+            this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
             this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonButton2 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.kryptonGroup1 = new ComponentFactory.Krypton.Toolkit.KryptonGroup();
-            this.kryptonComboBox1 = new ComponentFactory.Krypton.Toolkit.KryptonComboBox();
-            this.kryptonTreeView1 = new ComponentFactory.Krypton.Toolkit.KryptonTreeView();
-            this.kryptonButton3 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
-            this.kryptonButton4 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonNavigator1)).BeginInit();
             this.kryptonNavigator1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPage1)).BeginInit();
@@ -50,11 +50,11 @@
             this.kryptonHeaderGroup1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel2)).BeginInit();
             this.kryptonPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonComboBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).BeginInit();
             this.kryptonGroup1.Panel.SuspendLayout();
             this.kryptonGroup1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonComboBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // kryptonNavigator1
@@ -114,6 +114,14 @@
             this.kryptonHeaderGroup1.ValuesPrimary.Heading = "Files";
             this.kryptonHeaderGroup1.ValuesPrimary.Image = null;
             // 
+            // kryptonTreeView1
+            // 
+            this.kryptonTreeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryptonTreeView1.Location = new System.Drawing.Point(0, 0);
+            this.kryptonTreeView1.Name = "kryptonTreeView1";
+            this.kryptonTreeView1.Size = new System.Drawing.Size(189, 328);
+            this.kryptonTreeView1.TabIndex = 0;
+            // 
             // kryptonPanel2
             // 
             this.kryptonPanel2.Controls.Add(this.kryptonButton4);
@@ -127,21 +135,35 @@
             this.kryptonPanel2.Size = new System.Drawing.Size(191, 444);
             this.kryptonPanel2.TabIndex = 0;
             // 
-            // kryptonButton1
+            // kryptonButton4
             // 
-            this.kryptonButton1.Location = new System.Drawing.Point(12, 14);
-            this.kryptonButton1.Name = "kryptonButton1";
-            this.kryptonButton1.Size = new System.Drawing.Size(80, 25);
-            this.kryptonButton1.TabIndex = 0;
-            this.kryptonButton1.Values.Text = "Import";
+            this.kryptonButton4.Location = new System.Drawing.Point(145, 3);
+            this.kryptonButton4.Name = "kryptonButton4";
+            this.kryptonButton4.Size = new System.Drawing.Size(20, 20);
+            this.kryptonButton4.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.kryptonButton4.TabIndex = 7;
+            this.kryptonButton4.Values.Text = "+";
+            this.kryptonButton4.Click += new System.EventHandler(this.AddAccount);
             // 
-            // kryptonButton2
+            // kryptonButton3
             // 
-            this.kryptonButton2.Location = new System.Drawing.Point(98, 14);
-            this.kryptonButton2.Name = "kryptonButton2";
-            this.kryptonButton2.Size = new System.Drawing.Size(78, 25);
-            this.kryptonButton2.TabIndex = 1;
-            this.kryptonButton2.Values.Text = "Site Info";
+            this.kryptonButton3.Location = new System.Drawing.Point(168, 3);
+            this.kryptonButton3.Name = "kryptonButton3";
+            this.kryptonButton3.Size = new System.Drawing.Size(20, 20);
+            this.kryptonButton3.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Webdings", 8.25F);
+            this.kryptonButton3.TabIndex = 6;
+            this.kryptonButton3.Values.Text = "@";
+            // 
+            // kryptonComboBox1
+            // 
+            this.kryptonComboBox1.DropDownWidth = 136;
+            this.kryptonComboBox1.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.kryptonComboBox1.Location = new System.Drawing.Point(3, 3);
+            this.kryptonComboBox1.Name = "kryptonComboBox1";
+            this.kryptonComboBox1.Size = new System.Drawing.Size(136, 21);
+            this.kryptonComboBox1.TabIndex = 5;
+            this.kryptonComboBox1.TabStop = false;
+            this.kryptonComboBox1.Text = "Open A Website...";
             // 
             // kryptonGroup1
             // 
@@ -158,43 +180,21 @@
             this.kryptonGroup1.Size = new System.Drawing.Size(191, 57);
             this.kryptonGroup1.TabIndex = 4;
             // 
-            // kryptonComboBox1
+            // kryptonButton1
             // 
-            this.kryptonComboBox1.DropDownWidth = 136;
-            this.kryptonComboBox1.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.kryptonComboBox1.Location = new System.Drawing.Point(3, 3);
-            this.kryptonComboBox1.Name = "kryptonComboBox1";
-            this.kryptonComboBox1.Size = new System.Drawing.Size(136, 21);
-            this.kryptonComboBox1.TabIndex = 5;
-            this.kryptonComboBox1.TabStop = false;
-            this.kryptonComboBox1.Text = "Open A Website...";
+            this.kryptonButton1.Location = new System.Drawing.Point(12, 14);
+            this.kryptonButton1.Name = "kryptonButton1";
+            this.kryptonButton1.Size = new System.Drawing.Size(80, 25);
+            this.kryptonButton1.TabIndex = 0;
+            this.kryptonButton1.Values.Text = "Import";
             // 
-            // kryptonTreeView1
+            // kryptonButton2
             // 
-            this.kryptonTreeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.kryptonTreeView1.Location = new System.Drawing.Point(0, 0);
-            this.kryptonTreeView1.Name = "kryptonTreeView1";
-            this.kryptonTreeView1.Size = new System.Drawing.Size(189, 328);
-            this.kryptonTreeView1.TabIndex = 0;
-            // 
-            // kryptonButton3
-            // 
-            this.kryptonButton3.Location = new System.Drawing.Point(168, 3);
-            this.kryptonButton3.Name = "kryptonButton3";
-            this.kryptonButton3.Size = new System.Drawing.Size(20, 20);
-            this.kryptonButton3.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Webdings", 8.25F);
-            this.kryptonButton3.TabIndex = 6;
-            this.kryptonButton3.Values.Text = "@";
-            // 
-            // kryptonButton4
-            // 
-            this.kryptonButton4.Location = new System.Drawing.Point(145, 3);
-            this.kryptonButton4.Name = "kryptonButton4";
-            this.kryptonButton4.Size = new System.Drawing.Size(20, 20);
-            this.kryptonButton4.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.kryptonButton4.TabIndex = 7;
-            this.kryptonButton4.Values.Text = "+";
-            this.kryptonButton4.Click += new System.EventHandler(this.AddAccount);
+            this.kryptonButton2.Location = new System.Drawing.Point(98, 14);
+            this.kryptonButton2.Name = "kryptonButton2";
+            this.kryptonButton2.Size = new System.Drawing.Size(78, 25);
+            this.kryptonButton2.TabIndex = 1;
+            this.kryptonButton2.Values.Text = "Delete";
             // 
             // MainForm
             // 
@@ -207,6 +207,7 @@
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(3);
             this.Text = "NeoTool";
+            this.Resize += new System.EventHandler(this.MainForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonNavigator1)).EndInit();
             this.kryptonNavigator1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPage1)).EndInit();
@@ -217,11 +218,11 @@
             this.kryptonHeaderGroup1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonPanel2)).EndInit();
             this.kryptonPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.kryptonComboBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1.Panel)).EndInit();
             this.kryptonGroup1.Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonGroup1)).EndInit();
             this.kryptonGroup1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.kryptonComboBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -25,9 +25,9 @@ namespace NeoTool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Generic.List<NeoTool.AccountData> Accounts {
+        public global::System.Collections.Generic.List<AccountData> Accounts {
             get {
-                return ((global::System.Collections.Generic.List<NeoTool.AccountData>)(this["Accounts"]));
+                return ((global::System.Collections.Generic.List<AccountData>)(this["Accounts"]));
             }
             set {
                 this["Accounts"] = value;
