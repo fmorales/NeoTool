@@ -304,6 +304,7 @@
             this.MinimumSize = new System.Drawing.Size(500, 350);
             this.Name = "MainForm";
             this.Text = "NeoTool";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.kryptonNavigator1)).EndInit();
             this.kryptonNavigator1.ResumeLayout(false);

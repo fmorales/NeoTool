@@ -164,6 +164,26 @@ namespace NeoTool {
 
             kp.Controls.Add(fctb);
         }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+            bool hasUnsavedFiles = false;
+
+            foreach (KryptonPage p in kryptonNavigator1.Pages) if (((FileData)p.Tag).modified) hasUnsavedFiles = true;
+
+            if (hasUnsavedFiles) {
+                DialogResult result = MessageBox.Show(this, "Do you want to save the changes you have made?\nIf you don't save, your work will be lost.", "NeoTool", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+
+                switch(result) {
+                    case DialogResult.Yes:
+                        return;
+                    case DialogResult.No:
+                        return;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        return;
+                }
+            }
+        }
     }
 
     public struct AccountData {
