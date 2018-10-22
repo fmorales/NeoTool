@@ -19,8 +19,6 @@ namespace NeoTool {
     public partial class MainForm:Form {
         API api = new API();
 
-        string oldComboText;
-
         public MainForm() {
             InitializeComponent();
 
@@ -35,7 +33,7 @@ namespace NeoTool {
                 UpdateComboBox();
             }
 
-            oldComboText = kryptonComboBox1.Text;
+            //kryptonNavigator1.StateCommon.RibbonGeneral.TextFont = new Font("Cambria Math", (float)8.25);
         }
 
         private void AddAccount(object s = null, EventArgs e = null) {
@@ -118,7 +116,7 @@ namespace NeoTool {
 
         private void MainForm_Resize(object sender, EventArgs e) {
             kryptonHeaderGroup1.Height = kryptonPanel2.Height - 114;
-            kryptonNavigator1.Width = this.Width - 216;
+            //kryptonNavigator1.Width = this.Width - 216;
         }
 
         private void kryptonComboBox1_SelectedValueChanged(object sender, EventArgs e) {
@@ -143,6 +141,9 @@ namespace NeoTool {
                 }
 
             KryptonPage kp = new KryptonPage(node.Text, imageList1.Images[node.ImageIndex], api.username + "@" + ((FileData)node.Tag).info.FilePath);
+            kp.Tag = ((FileData)node.Tag);
+            ((FileData)kp.Tag).originalTitle = kp.Text;
+            kp.ToolTipTitle = string.Format("Site: {0}\nPath: {1}", api.username, ((FileData)node.Tag).info.FilePath);
             kryptonNavigator1.Pages.Add(kp);
 
             FastColoredTextBox fctb = new FastColoredTextBox();
@@ -153,6 +154,13 @@ namespace NeoTool {
 
             fctb.Dock = DockStyle.Fill;
             fctb.Text = api.GetFile(((FileData)node.Tag).info.FilePath);
+            ((FileData)kp.Tag).originalText = fctb.Text;
+            fctb.TextChanged += (s, ea) => {
+                if (fctb.Text != ((FileData)kp.Tag).originalText && !((FileData)kp.Tag).modified) {
+                    ((FileData)kp.Tag).modified = true;
+                    kp.Text = "⁎ " + kp.Text;
+                }
+            };
 
             kp.Controls.Add(fctb);
         }
@@ -168,13 +176,18 @@ namespace NeoTool {
         }
     }
 
-    public struct FileData {
+    public class FileData {
         public APIFileInfo info;
         public string site;
+        public string originalText;
+        public string originalTitle;
+        public bool modified;
 
         public FileData(APIFileInfo afi, string s) {
             info = afi;
             site = s;
+            originalText = "";
+            modified = false;
         }
     }
 }
