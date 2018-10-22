@@ -10,8 +10,8 @@ using System.Windows.Forms;
 
 namespace NeoTool {
     public class API {
-        public String username;
-        public String password;
+        public string username;
+        public string password;
 
         public API() {
             try {
@@ -22,30 +22,50 @@ namespace NeoTool {
             }
         }
 
-        public void Upload(String localFilePath, String newFilePath) {
+        public void Upload(string localFilePath, string newFilePath) {
 
         }
 
-        public void Delete(String filePath) {
+        public void Delete(string filePath) {
 
         }
 
-        public String GetKey() {
+        public string GetFile(string filePath) {
+            ProcessStartInfo s = new ProcessStartInfo("curl.exe", string.Format("-k -s https://{0}.neocities.org/{1}", username, filePath));
+            s.CreateNoWindow = true;
+            s.UseShellExecute = false;
+            s.RedirectStandardOutput = true;
+            s.WindowStyle = ProcessWindowStyle.Hidden;
+            Process p = Process.Start(s);
+            string str = p.StandardOutput.ReadToEnd();
+            p.WaitForExit();
+            return str;
+        }
+
+        public List<APIFileInfo> GetFileInfos() {
+            APIResponse r = MakeRequest("list", true);
+            if (r == null) return null;
+
+            return r.Files;
+        }
+
+        public string GetKey() {
             APIResponse r = MakeRequest("key", true);
             if (r == null) return null;
 
             return r.APIKey;
         }
 
-        private APIResponse MakeRequest(String apiCall, bool useAuth, String extraArgs = "") {
-            ProcessStartInfo s = new ProcessStartInfo("curl.exe", String.Format("{0} -k -s https://{1}neocities.org/api/{2}", extraArgs, useAuth == true ? username + ":" + password + "@" : "", apiCall));
+        private APIResponse MakeRequest(string apiCall, bool useAuth, string extraArgs = "") {
+            ProcessStartInfo s = new ProcessStartInfo("curl.exe", string.Format("{0} -k -s {1} https://neocities.org/api/{2}", extraArgs, useAuth == true ? "-u " + username + ":" + password : "", apiCall));
             s.CreateNoWindow = true;
             s.UseShellExecute = false;
             s.RedirectStandardOutput = true;
             s.WindowStyle = ProcessWindowStyle.Hidden;
             Process p = Process.Start(s);
+            string str = p.StandardOutput.ReadToEnd();
             p.WaitForExit();
-            APIResponse r = JsonConvert.DeserializeObject<APIResponse>(p.StandardOutput.ReadToEnd());
+            APIResponse r = JsonConvert.DeserializeObject<APIResponse>(str);
 
             if (r.Result == "error") {
                 if (r.ErrorType == "not_found") MessageBox.Show("The requested API call doesn't exist. This shouldn't happen at all, so please let lempamo know.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -60,24 +80,24 @@ namespace NeoTool {
 
     public class APIResponse {
         [JsonProperty("result")]
-        public String Result { get; set; }
+        public string Result { get; set; }
 
         [JsonProperty("error_type")]
-        public String ErrorType { get; set; }
+        public string ErrorType { get; set; }
 
         [JsonProperty("message")]
-        public String ErrorMessage { get; set; }
+        public string ErrorMessage { get; set; }
 
         [JsonProperty("files")]
         public List<APIFileInfo> Files { get; set; }
 
         [JsonProperty("api_key")]
-        public String APIKey { get; set; }
+        public string APIKey { get; set; }
     }
 
     public class APIFileInfo {
         [JsonProperty("path")]
-        public String FilePath { get; set; }
+        public string FilePath { get; set; }
 
         [JsonProperty("is_directory")]
         public bool IsDirectory { get; set; }
@@ -86,6 +106,6 @@ namespace NeoTool {
         public int Size { get; set; }
 
         [JsonProperty("date")]
-        public String Date { get; set; }
+        public string Date { get; set; }
     }
 }
