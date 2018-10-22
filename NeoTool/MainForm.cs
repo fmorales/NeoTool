@@ -134,12 +134,15 @@ namespace NeoTool {
         private void kryptonTreeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e) {
             TreeNode node = ((KryptonTreeView)sender).SelectedNode;
 
+            if (((FileData)node.Tag).info.IsDirectory) return;
+
             foreach (string s in new string[]{".gif", ".jpeg", ".jpg", ".png"})
                 if (node.Text.EndsWith(s)) {
                     MessageBox.Show("Images cannot be opened yet.", "Not Implemented", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
+            Cursor.Current = Cursors.WaitCursor;
             KryptonPage kp = new KryptonPage(node.Text, imageList1.Images[node.ImageIndex], api.username + "@" + ((FileData)node.Tag).info.FilePath);
             kp.Tag = ((FileData)node.Tag);
             ((FileData)kp.Tag).originalTitle = kp.Text;
@@ -163,6 +166,7 @@ namespace NeoTool {
             };
 
             kp.Controls.Add(fctb);
+            Cursor.Current = Cursors.Default;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
@@ -180,6 +184,22 @@ namespace NeoTool {
                         return;
                     case DialogResult.Cancel:
                         e.Cancel = true;
+                        return;
+                }
+            }
+        }
+
+        private void kryptonNavigator1_CloseAction(object sender, CloseActionEventArgs e) {
+            if (((FileData)e.Item.Tag).modified) {
+                DialogResult result = MessageBox.Show(this, "Do you want to save the changes you have made to "+ ((FileData)e.Item.Tag).originalTitle +"?\nIf you don't save, your work will be lost.", "NeoTool", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+
+                switch (result) {
+                    case DialogResult.Yes:
+                        return;
+                    case DialogResult.No:
+                        return;
+                    case DialogResult.Cancel:
+                        e.Action = CloseButtonAction.None;
                         return;
                 }
             }

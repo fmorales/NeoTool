@@ -89,6 +89,7 @@
             this.kryptonNavigator1.TabIndex = 0;
             this.kryptonNavigator1.Text = "kryptonNavigator1";
             this.kryptonNavigator1.ToolTips.AllowPageToolTips = true;
+            this.kryptonNavigator1.CloseAction += new System.EventHandler<ComponentFactory.Krypton.Navigator.CloseActionEventArgs>(this.kryptonNavigator1_CloseAction);
             // 
             // kryptonHeaderGroup1
             // 
@@ -255,6 +256,7 @@
             // 
             this.kryptonSplitContainer1.Cursor = System.Windows.Forms.Cursors.Default;
             this.kryptonSplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryptonSplitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.kryptonSplitContainer1.IsSplitterFixed = true;
             this.kryptonSplitContainer1.Location = new System.Drawing.Point(0, 0);
             this.kryptonSplitContainer1.Name = "kryptonSplitContainer1";
@@ -276,6 +278,7 @@
             // 
             this.kryptonSplitContainer2.Cursor = System.Windows.Forms.Cursors.Default;
             this.kryptonSplitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryptonSplitContainer2.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.kryptonSplitContainer2.IsSplitterFixed = true;
             this.kryptonSplitContainer2.Location = new System.Drawing.Point(0, 0);
             this.kryptonSplitContainer2.Name = "kryptonSplitContainer2";
