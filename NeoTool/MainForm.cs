@@ -18,7 +18,7 @@ using System.Windows.Forms;
 
 namespace NeoTool {
     public partial class MainForm:Form {
-        API api = new API();
+        public API api = new API();
 
         public MainForm() {
             InitializeComponent();
@@ -159,6 +159,7 @@ namespace NeoTool {
 
             fctb.Name = "FastColoredTextBox";
             fctb.Dock = DockStyle.Fill;
+            fctb.TabLength = 2;
             fctb.Text = api.GetFile(((FileData)node.Tag).info.FilePath);
             ((FileData)kp.Tag).originalText = fctb.Text;
             fctb.TextChanged += (s, ea) => {
@@ -210,8 +211,14 @@ namespace NeoTool {
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
             switch (keyData) {
+                case (Keys.Control | Keys.N):
+                    newToolStripMenuItem.PerformClick();
+                    break;
                 case (Keys.Control | Keys.S):
                     saveToolStripMenuItem.PerformClick();
+                    break;
+                case (Keys.Control | Keys.Shift | Keys.I):
+                    importToolStripMenuItem.PerformClick();
                     break;
             }
 
@@ -254,6 +261,46 @@ namespace NeoTool {
             api.username = kryptonComboBox1.Text;
             api.password = Settings.Default.Accounts.Find(x => x.username == kryptonComboBox1.Text).password;
             PopulateTreeView();
+        }
+
+        private void kryptonButton5_Click(object sender, EventArgs e) {
+
+        }
+
+        private void importToolStripMenuItem_Click(object sender, EventArgs e) {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.CheckFileExists = true;
+            ofd.Multiselect = false;
+            ofd.Filter = "All allowed filetypes (*.html;*.htm;*.jpg;*.png;*.gif;*.svg;*.ico;*.md;*.markdown;*.js;*.json;*.geojson;*.css;*.txt;*.text;*.csv;*.tsv;*.xml;*.eot;*.ttf;*.woff;*.woff2;*.mid;*.midi)|*.html;*.htm;*.jpg;*.png;*.gif;*.svg;*.ico;*.md;*.markdown;*.js;*.json;*.geojson;*.css;*.txt;*.text;*.csv;*.tsv;*.xml;*.eot;*.ttf;*.woff;*.woff2;*.mid;*.midi";
+            DialogResult result = ofd.ShowDialog();
+
+            api.username = kryptonComboBox1.Text;
+            api.password = Settings.Default.Accounts.Find(x => x.username == kryptonComboBox1.Text).password;
+
+            if (result == DialogResult.OK) {
+                TreeDialog td = new TreeDialog(this, true);
+                string expectedExtension = "." + ofd.SafeFileName.Split('.').Last();
+                td.kryptonTextBox1.Text = ofd.SafeFileName;
+                while (true) {
+                    result = td.ShowDialog();
+
+                    if (result == DialogResult.Cancel) return;
+
+                    if (td.kryptonTextBox1.Text.EndsWith(expectedExtension)) {
+                        if (td.kryptonTreeView1.SelectedNode != null) {
+                            api.Upload(ofd.FileName, ((FileData)td.kryptonTreeView1.SelectedNode.Tag).info.FilePath + "\\" + td.kryptonTextBox1.Text);
+                            td.Close();
+                            return;
+                        } else {
+                            MessageBox.Show("Please select a destination folder.");
+                            continue;
+                        }
+                    } else {
+                        MessageBox.Show("File needs to end in \"" + expectedExtension + "\".");
+                        continue;
+                    }
+                }
+            }
         }
     }
 
