@@ -23,7 +23,7 @@ namespace NeoTool {
         }
 
         public void Upload(string localFilePath, string newFilePath) {
-
+            MakeRequest("upload", true, string.Format("-F \"{0}=@{1}\"", newFilePath, localFilePath));
         }
 
         public void Delete(string filePath) {
