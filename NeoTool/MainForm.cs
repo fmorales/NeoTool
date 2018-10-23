@@ -134,6 +134,7 @@ namespace NeoTool {
 
         private void kryptonTreeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e) {
             TreeNode node = ((KryptonTreeView)sender).SelectedNode;
+            if (node == null) return;
 
             if (((FileData)node.Tag).info.IsDirectory) return;
 
@@ -231,6 +232,28 @@ namespace NeoTool {
             ((FileData)kryptonNavigator1.SelectedPage.Tag).originalText = fctb.Text;
             kryptonNavigator1.SelectedPage.Text = ((FileData)kryptonNavigator1.SelectedPage.Tag).originalTitle;
             ((FileData)kryptonNavigator1.SelectedPage.Tag).modified = false;
+        }
+
+        private void kryptonButton2_Click(object sender, EventArgs e) {
+            if (kryptonTreeView1.SelectedNode == null) return;
+
+            DialogResult result = MessageBox.Show(this, "Are you sure you want to delete " + ((FileData)kryptonTreeView1.SelectedNode.Tag).info.FilePath + "?\nThis cannot be undone!", "NeoTool", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+
+            if (result == DialogResult.Yes) {
+                api.username = kryptonComboBox1.Text;
+                api.password = Settings.Default.Accounts.Find(x => x.username == kryptonComboBox1.Text).password;
+
+                api.Delete(((FileData)kryptonTreeView1.SelectedNode.Tag).info.FilePath);
+                PopulateTreeView();
+            }
+        }
+
+        private void kryptonButton6_Click(object sender, EventArgs e) {
+            if (kryptonComboBox1.Text == null) return;
+
+            api.username = kryptonComboBox1.Text;
+            api.password = Settings.Default.Accounts.Find(x => x.username == kryptonComboBox1.Text).password;
+            PopulateTreeView();
         }
     }
 

@@ -27,7 +27,7 @@ namespace NeoTool {
         }
 
         public void Delete(string filePath) {
-
+            MakeRequest("delete", true, string.Format("-d \"filenames[]={0}\"", filePath));
         }
 
         public string GetFile(string filePath) {
