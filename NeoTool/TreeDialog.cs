@@ -10,8 +10,12 @@ using System.Windows.Forms;
 
 namespace NeoTool {
     public partial class TreeDialog : Form {
+        MainForm mf;
+
         public TreeDialog(MainForm mf, bool dirsOnly = false) {
             InitializeComponent();
+
+            this.mf = mf;
 
             Cursor.Current = Cursors.WaitCursor;
             kryptonTreeView1.Nodes.Clear();
@@ -52,10 +56,44 @@ namespace NeoTool {
                 lastNode = null;
             }
 
+            APIFileInfo afi = new APIFileInfo();
+            afi.FilePath = "";
+            afi.IsDirectory = true;
+            afi.Size = 0;
+
             kryptonTreeView1.Nodes[0].SelectedImageIndex = 1;
             kryptonTreeView1.Nodes[0].ImageIndex = 1;
+            kryptonTreeView1.Nodes[0].Tag = new FileData(afi, mf.api.username);
 
             Cursor.Current = Cursors.Default;
+        }
+
+        private void kryptonButton3_Click(object sender, EventArgs e) {
+            TreeNode node = new TreeNode();
+
+            TextDialog text = new TextDialog();
+            while (true) {
+                DialogResult r = text.ShowDialog();
+
+                if (r == DialogResult.OK) {
+                    if (text.kryptonTextBox1.Text != "")
+                        if (!text.kryptonTextBox1.Text.Contains(".")) {
+                            node.Text = text.kryptonTextBox1.Text;
+                            FileData fd = new FileData(new APIFileInfo(), mf.api.username);
+                            fd.info.FilePath = ((FileData)kryptonTreeView1.SelectedNode.Tag).info.FilePath + "\\" + node.Text;
+                            fd.info.IsDirectory = true;
+                            node.Tag = fd;
+
+                            kryptonTreeView1.SelectedNode.Nodes.Add(node);
+                            return;
+                        } else {
+                            MessageBox.Show("Folder names cannot contain periods.");
+                            continue;
+                        }
+                } else {
+                    return;
+                }
+            }
         }
     }
 }

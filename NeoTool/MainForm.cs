@@ -138,6 +138,12 @@ namespace NeoTool {
 
             if (((FileData)node.Tag).info.IsDirectory) return;
 
+            foreach (KryptonPage p in kryptonNavigator1.Pages)
+                if (((FileData)p.Tag).info.FilePath == ((FileData)node.Tag).info.FilePath) {
+                    kryptonNavigator1.SelectedPage = p;
+                    return;
+                }
+
             foreach (string s in new string[]{".gif", ".jpeg", ".jpg", ".png"})
                 if (node.Text.EndsWith(s)) {
                     MessageBox.Show("Images cannot be opened yet.", "Not Implemented", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -250,6 +256,12 @@ namespace NeoTool {
                 api.username = kryptonComboBox1.Text;
                 api.password = Settings.Default.Accounts.Find(x => x.username == kryptonComboBox1.Text).password;
 
+                foreach (KryptonPage p in kryptonNavigator1.Pages)
+                    if (((FileData)p.Tag).info.FilePath == ((FileData)kryptonTreeView1.SelectedNode.Tag).info.FilePath) {
+                        kryptonNavigator1.Pages.Remove(p);
+                        return;
+                    }
+
                 api.Delete(((FileData)kryptonTreeView1.SelectedNode.Tag).info.FilePath);
                 PopulateTreeView();
             }
@@ -264,7 +276,44 @@ namespace NeoTool {
         }
 
         private void kryptonButton5_Click(object sender, EventArgs e) {
+            api.username = kryptonComboBox1.Text;
+            api.password = Settings.Default.Accounts.Find(x => x.username == kryptonComboBox1.Text).password;
 
+            if (kryptonTreeView1.SelectedNode != null) {
+                TreeDialog td = new TreeDialog(this, true);
+                string expectedExtension = "." + kryptonTreeView1.SelectedNode.Text.Split('.').Last();
+                td.kryptonTextBox1.Text = kryptonTreeView1.SelectedNode.Text;
+                while (true) {
+                    DialogResult result = td.ShowDialog();
+
+                    if (result == DialogResult.Cancel) return;
+
+                    if (td.kryptonTextBox1.Text.EndsWith(expectedExtension)) {
+                        if (td.kryptonTreeView1.SelectedNode != null) {
+                            if (((FileData)td.kryptonTreeView1.SelectedNode.Tag).info.FilePath + "\\" + td.kryptonTextBox1.Text != kryptonTreeView1.SelectedNode.Text) {
+                                Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Temp"));
+                                File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Temp\\neotemp.html"), api.GetFile(kryptonTreeView1.SelectedNode.Text));
+
+                                api.Delete(((FileData)kryptonTreeView1.SelectedNode.Tag).info.FilePath);
+
+                                api.Upload(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Temp\\neotemp.html"), ((FileData)td.kryptonTreeView1.SelectedNode.Tag).info.FilePath + "\\" + td.kryptonTextBox1.Text);
+                                td.Close();
+                                PopulateTreeView();
+                                return;
+                            } else {
+                                MessageBox.Show("Please enter a new filename or select a new destination.");
+                                continue;
+                            }
+                        } else {
+                            MessageBox.Show("Please select a destination folder.");
+                            continue;
+                        }
+                    } else {
+                        MessageBox.Show("File needs to end in \"" + expectedExtension + "\".");
+                        continue;
+                    }
+                }
+            }
         }
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e) {
@@ -299,6 +348,40 @@ namespace NeoTool {
                         MessageBox.Show("File needs to end in \"" + expectedExtension + "\".");
                         continue;
                     }
+                }
+            }
+        }
+
+        private void kryptonButton1_Click(object sender, EventArgs e) {
+            MessageBox.Show("You cannot open files in other programs yet.", "Not Implemented", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e) {
+            api.username = kryptonComboBox1.Text;
+            api.password = Settings.Default.Accounts.Find(x => x.username == kryptonComboBox1.Text).password;
+
+            TreeDialog td = new TreeDialog(this, true);
+            while (true) {
+                DialogResult result = td.ShowDialog();
+
+                if (result == DialogResult.Cancel) return;
+
+                if (td.kryptonTextBox1.Text.EndsWith(".htm") | td.kryptonTextBox1.Text.EndsWith(".html") | td.kryptonTextBox1.Text.EndsWith(".css") | td.kryptonTextBox1.Text.EndsWith(".js") | td.kryptonTextBox1.Text.EndsWith(".json") | td.kryptonTextBox1.Text.EndsWith(".md") | td.kryptonTextBox1.Text.EndsWith(".geojson") | td.kryptonTextBox1.Text.EndsWith(".markdown") | td.kryptonTextBox1.Text.EndsWith(".txt") | td.kryptonTextBox1.Text.EndsWith(".xml") | td.kryptonTextBox1.Text.EndsWith(".text") | td.kryptonTextBox1.Text.EndsWith("csv") | td.kryptonTextBox1.Text.EndsWith(".tsv")) {
+                    if (td.kryptonTreeView1.SelectedNode != null) {
+                        Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Temp"));
+                        File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Temp\\neotemp.html"), "Blank file created by NeoTool.");
+
+                        api.Upload(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Temp\\neotemp.html"), ((FileData)td.kryptonTreeView1.SelectedNode.Tag).info.FilePath + "\\" + td.kryptonTextBox1.Text);
+                        PopulateTreeView();
+                        td.Close();
+                        return;
+                    } else {
+                        MessageBox.Show("Please select a destination folder.");
+                        continue;
+                    }
+                } else {
+                    MessageBox.Show("File needs to end in an allowed extension.\n(.htm, .html, .md, .markdown, .css, .js, .json, .geojson, .xml, .txt, .text, .csv, .tsv)");
+                    continue;
                 }
             }
         }

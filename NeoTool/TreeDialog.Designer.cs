@@ -26,11 +26,12 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TreeDialog));
             this.kryptonTreeView1 = new ComponentFactory.Krypton.Toolkit.KryptonTreeView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.kryptonButton1 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonButton2 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.kryptonTextBox1 = new ComponentFactory.Krypton.Toolkit.KryptonTextBox();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.kryptonLabel1 = new ComponentFactory.Krypton.Toolkit.KryptonLabel();
+            this.kryptonButton3 = new ComponentFactory.Krypton.Toolkit.KryptonButton();
             this.SuspendLayout();
             // 
             // kryptonTreeView1
@@ -40,8 +41,15 @@
             this.kryptonTreeView1.Location = new System.Drawing.Point(12, 12);
             this.kryptonTreeView1.Name = "kryptonTreeView1";
             this.kryptonTreeView1.SelectedImageIndex = 0;
-            this.kryptonTreeView1.Size = new System.Drawing.Size(195, 226);
+            this.kryptonTreeView1.Size = new System.Drawing.Size(195, 197);
             this.kryptonTreeView1.TabIndex = 0;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "folder.png");
+            this.imageList1.Images.SetKeyName(1, "Datbase.png");
             // 
             // kryptonButton1
             // 
@@ -68,13 +76,6 @@
             this.kryptonTextBox1.Size = new System.Drawing.Size(127, 23);
             this.kryptonTextBox1.TabIndex = 3;
             // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "folder.png");
-            this.imageList1.Images.SetKeyName(1, "Datbase.png");
-            // 
             // kryptonLabel1
             // 
             this.kryptonLabel1.Location = new System.Drawing.Point(12, 246);
@@ -83,12 +84,22 @@
             this.kryptonLabel1.TabIndex = 4;
             this.kryptonLabel1.Values.Text = "Filename:";
             // 
+            // kryptonButton3
+            // 
+            this.kryptonButton3.Location = new System.Drawing.Point(13, 215);
+            this.kryptonButton3.Name = "kryptonButton3";
+            this.kryptonButton3.Size = new System.Drawing.Size(194, 25);
+            this.kryptonButton3.TabIndex = 5;
+            this.kryptonButton3.Values.Text = "New Folder";
+            this.kryptonButton3.Click += new System.EventHandler(this.kryptonButton3_Click);
+            // 
             // TreeDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(206)))), ((int)(((byte)(230)))));
             this.ClientSize = new System.Drawing.Size(219, 310);
+            this.Controls.Add(this.kryptonButton3);
             this.Controls.Add(this.kryptonLabel1);
             this.Controls.Add(this.kryptonTextBox1);
             this.Controls.Add(this.kryptonButton2);
@@ -109,5 +120,6 @@
         private ComponentFactory.Krypton.Toolkit.KryptonLabel kryptonLabel1;
         public ComponentFactory.Krypton.Toolkit.KryptonTreeView kryptonTreeView1;
         public ComponentFactory.Krypton.Toolkit.KryptonTextBox kryptonTextBox1;
+        private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton3;
     }
 }

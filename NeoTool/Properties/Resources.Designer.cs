@@ -59,5 +59,15 @@ namespace NeoTool.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon neotool_logo_png {
+            get {
+                object obj = ResourceManager.GetObject("neotool_logo_png", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }
