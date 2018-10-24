@@ -388,6 +388,20 @@ namespace NeoTool {
                 }
             }
         }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e) {
+            Close();
+        }
+
+        private void ToolStripToFCTB(object sender, EventArgs e) {
+            if (kryptonNavigator1.Pages.Count != 0) {
+                if (sender == undoToolStripMenuItem) ((FastColoredTextBox)kryptonNavigator1.SelectedPage.Controls.Find("FastColoredTextBox", true)[0]).Undo();
+                else if (sender == redoToolStripMenuItem) ((FastColoredTextBox)kryptonNavigator1.SelectedPage.Controls.Find("FastColoredTextBox", true)[0]).Redo();
+                else if (sender == cutToolStripMenuItem) ((FastColoredTextBox)kryptonNavigator1.SelectedPage.Controls.Find("FastColoredTextBox", true)[0]).Cut();
+                else if (sender == copyToolStripMenuItem) ((FastColoredTextBox)kryptonNavigator1.SelectedPage.Controls.Find("FastColoredTextBox", true)[0]).Copy();
+                else if (sender == pasteToolStripMenuItem) ((FastColoredTextBox)kryptonNavigator1.SelectedPage.Controls.Find("FastColoredTextBox", true)[0]).Paste();
+            }
+        }
     }
 
     public struct AccountData {
