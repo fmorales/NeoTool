@@ -138,6 +138,9 @@ namespace NeoTool {
 
             if (((FileData)node.Tag).info.IsDirectory) return;
 
+            api.username = kryptonComboBox1.Text;
+            api.password = Settings.Default.Accounts.Find(x => x.username == kryptonComboBox1.Text).password;
+
             foreach (KryptonPage p in kryptonNavigator1.Pages)
                 if (((FileData)p.Tag).info.FilePath == ((FileData)node.Tag).info.FilePath && ((FileData)p.Tag).site == api.username) {
                     kryptonNavigator1.SelectedPage = p;
