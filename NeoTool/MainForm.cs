@@ -139,7 +139,7 @@ namespace NeoTool {
             if (((FileData)node.Tag).info.IsDirectory) return;
 
             foreach (KryptonPage p in kryptonNavigator1.Pages)
-                if (((FileData)p.Tag).info.FilePath == ((FileData)node.Tag).info.FilePath) {
+                if (((FileData)p.Tag).info.FilePath == ((FileData)node.Tag).info.FilePath && ((FileData)p.Tag).site == api.username) {
                     kryptonNavigator1.SelectedPage = p;
                     return;
                 }
