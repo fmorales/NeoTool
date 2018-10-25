@@ -37,7 +37,7 @@ namespace NeoTool {
             //kryptonNavigator1.StateCommon.RibbonGeneral.TextFont = new Font("Cambria Math", (float)8.25);
         }
 
-        private void AddAccount(object s = null, EventArgs e = null) {
+        public void AddAccount(object s = null, EventArgs e = null) {
             LoginDialog login = new LoginDialog();
             while (true) {
                 DialogResult result = login.ShowDialog();
@@ -66,7 +66,7 @@ namespace NeoTool {
             api.password = "";
         }
 
-        private void UpdateComboBox() {
+        public void UpdateComboBox() {
             kryptonComboBox1.Items.Clear();
             List<string> sites = new List<string>();
             foreach (AccountData a in Settings.Default.Accounts) sites.Add(a.username);
@@ -320,6 +320,8 @@ namespace NeoTool {
         }
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (kryptonComboBox1.Text == "") return;
+
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.CheckFileExists = true;
             ofd.Multiselect = false;
@@ -356,6 +358,8 @@ namespace NeoTool {
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (kryptonComboBox1.Text == "") return;
+
             api.username = kryptonComboBox1.Text;
             api.password = Settings.Default.Accounts.Find(x => x.username == kryptonComboBox1.Text).password;
 
@@ -409,6 +413,21 @@ namespace NeoTool {
 
         private void aboutNeoToolToolStripMenuItem_Click(object sender, EventArgs e) {
             new AboutBox().ShowDialog();
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (kryptonNavigator1.Pages.Count != 0) {
+                SaveFileDialog sfd = new SaveFileDialog();
+                DialogResult r = sfd.ShowDialog();
+
+                if (r == DialogResult.OK) {
+                    File.WriteAllText(sfd.FileName, ((FastColoredTextBox)kryptonNavigator1.SelectedPage.Controls.Find("FastColoredTextBox", true)[0]).Text);
+                }
+            }
+        }
+
+        private void kryptonButton3_Click(object sender, EventArgs e) {
+            new AccountManager(this).ShowDialog();
         }
     }
 

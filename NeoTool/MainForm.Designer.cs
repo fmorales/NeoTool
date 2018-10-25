@@ -46,6 +46,7 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -179,6 +180,7 @@
             this.kryptonButton3.StateCommon.Content.ShortText.Font = new System.Drawing.Font("Webdings", 8.25F);
             this.kryptonButton3.TabIndex = 6;
             this.kryptonButton3.Values.Text = "@";
+            this.kryptonButton3.Click += new System.EventHandler(this.kryptonButton3_Click);
             // 
             // kryptonComboBox1
             // 
@@ -246,6 +248,7 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
             this.saveToolStripMenuItem,
+            this.saveAsToolStripMenuItem,
             this.toolStripSeparator1,
             this.importToolStripMenuItem,
             this.toolStripSeparator2,
@@ -271,6 +274,13 @@
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.saveAsToolStripMenuItem.Text = "Save As...";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -386,7 +396,7 @@
             // aboutNeoToolToolStripMenuItem
             // 
             this.aboutNeoToolToolStripMenuItem.Name = "aboutNeoToolToolStripMenuItem";
-            this.aboutNeoToolToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutNeoToolToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.aboutNeoToolToolStripMenuItem.Text = "About NeoTool";
             this.aboutNeoToolToolStripMenuItem.Click += new System.EventHandler(this.aboutNeoToolToolStripMenuItem_Click);
             // 
@@ -481,14 +491,10 @@
         }
 
         #endregion
-
-        private ComponentFactory.Krypton.Navigator.KryptonNavigator kryptonNavigator1;
         private ComponentFactory.Krypton.Toolkit.KryptonHeaderGroup kryptonHeaderGroup1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton2;
         private ComponentFactory.Krypton.Toolkit.KryptonPanel kryptonPanel2;
         private ComponentFactory.Krypton.Toolkit.KryptonGroup kryptonGroup1;
-        private ComponentFactory.Krypton.Toolkit.KryptonComboBox kryptonComboBox1;
-        private ComponentFactory.Krypton.Toolkit.KryptonTreeView kryptonTreeView1;
         private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton3;
         private ComponentFactory.Krypton.Toolkit.KryptonButton kryptonButton4;
         private System.Windows.Forms.ImageList imageList1;
@@ -516,6 +522,10 @@
         private System.Windows.Forms.ToolStripMenuItem aboutNeoToolToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openInBrowserToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem refreshFilesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        public ComponentFactory.Krypton.Navigator.KryptonNavigator kryptonNavigator1;
+        public ComponentFactory.Krypton.Toolkit.KryptonComboBox kryptonComboBox1;
+        public ComponentFactory.Krypton.Toolkit.KryptonTreeView kryptonTreeView1;
     }
 }
 

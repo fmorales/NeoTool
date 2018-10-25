@@ -42,7 +42,7 @@
             // 
             // kryptonLabel1
             // 
-            this.kryptonLabel1.Location = new System.Drawing.Point(82, 12);
+            this.kryptonLabel1.Location = new System.Drawing.Point(82, 10);
             this.kryptonLabel1.Name = "kryptonLabel1";
             this.kryptonLabel1.Size = new System.Drawing.Size(77, 23);
             this.kryptonLabel1.StateCommon.ShortText.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -51,7 +51,7 @@
             // 
             // kryptonLabel2
             // 
-            this.kryptonLabel2.Location = new System.Drawing.Point(84, 31);
+            this.kryptonLabel2.Location = new System.Drawing.Point(84, 29);
             this.kryptonLabel2.Name = "kryptonLabel2";
             this.kryptonLabel2.Size = new System.Drawing.Size(71, 20);
             this.kryptonLabel2.TabIndex = 2;
@@ -59,7 +59,7 @@
             // 
             // kryptonLabel3
             // 
-            this.kryptonLabel3.Location = new System.Drawing.Point(83, 46);
+            this.kryptonLabel3.Location = new System.Drawing.Point(83, 44);
             this.kryptonLabel3.Name = "kryptonLabel3";
             this.kryptonLabel3.Size = new System.Drawing.Size(186, 20);
             this.kryptonLabel3.TabIndex = 3;
@@ -67,7 +67,7 @@
             // 
             // kryptonLinkLabel1
             // 
-            this.kryptonLinkLabel1.Location = new System.Drawing.Point(84, 60);
+            this.kryptonLinkLabel1.Location = new System.Drawing.Point(84, 58);
             this.kryptonLinkLabel1.Name = "kryptonLinkLabel1";
             this.kryptonLinkLabel1.Size = new System.Drawing.Size(170, 20);
             this.kryptonLinkLabel1.TabIndex = 4;
@@ -88,7 +88,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutBox";
-            this.Text = "AboutBox";
+            this.Text = "About";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
