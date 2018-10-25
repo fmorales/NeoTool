@@ -89,6 +89,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="API.cs" />
     <Compile Include="LoginDialog.cs">
       <SubType>Form</SubType>
@@ -116,6 +122,9 @@
     <Compile Include="TreeDialog.Designer.cs">
       <DependentUpon>TreeDialog.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginDialog.resx">
       <DependentUpon>LoginDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -166,6 +175,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\neotool-logo.png.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\neotool-logo64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

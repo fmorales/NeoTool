@@ -157,7 +157,7 @@ namespace NeoTool {
             KryptonPage kp = new KryptonPage(node.Text, imageList1.Images[node.ImageIndex], api.username + "@" + ((FileData)node.Tag).info.FilePath);
             kp.Tag = ((FileData)node.Tag);
             ((FileData)kp.Tag).originalTitle = kp.Text;
-            kp.ToolTipTitle = string.Format("Site: {0}\nPath: {1}", api.username, ((FileData)node.Tag).info.FilePath);
+            kp.ToolTipTitle = $"Site: {api.username}\nPath: {((FileData)node.Tag).info.FilePath}";
             kryptonNavigator1.Pages.Add(kp);
 
             FastColoredTextBox fctb = new FastColoredTextBox();
@@ -312,7 +312,7 @@ namespace NeoTool {
                             continue;
                         }
                     } else {
-                        MessageBox.Show("File needs to end in \"" + expectedExtension + "\".");
+                        MessageBox.Show($"File needs to end in \"{expectedExtension}\".");
                         continue;
                     }
                 }
@@ -348,7 +348,7 @@ namespace NeoTool {
                             continue;
                         }
                     } else {
-                        MessageBox.Show("File needs to end in \"" + expectedExtension + "\".");
+                        MessageBox.Show($"File needs to end in \"{expectedExtension}\".");
                         continue;
                     }
                 }
@@ -399,6 +399,16 @@ namespace NeoTool {
                 else if (sender == copyToolStripMenuItem) fctb.Copy();
                 else if (sender == pasteToolStripMenuItem) fctb.Paste();
             }
+        }
+
+        private void openInBrowserToolStripMenuItem_Click(object sender, EventArgs e) {
+            if (kryptonNavigator1.Pages.Count != 0) {
+                System.Diagnostics.Process.Start($"https://{((FileData)kryptonNavigator1.SelectedPage.Tag).site}.neocities.org/{((FileData)kryptonNavigator1.SelectedPage.Tag).info.FilePath}");
+            }
+        }
+
+        private void aboutNeoToolToolStripMenuItem_Click(object sender, EventArgs e) {
+            new AboutBox().ShowDialog();
         }
     }
 

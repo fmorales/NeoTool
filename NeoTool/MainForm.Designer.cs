@@ -366,6 +366,7 @@
             this.openInBrowserToolStripMenuItem.Name = "openInBrowserToolStripMenuItem";
             this.openInBrowserToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.openInBrowserToolStripMenuItem.Text = "Open In Browser";
+            this.openInBrowserToolStripMenuItem.Click += new System.EventHandler(this.openInBrowserToolStripMenuItem_Click);
             // 
             // refreshFilesToolStripMenuItem
             // 
@@ -385,8 +386,9 @@
             // aboutNeoToolToolStripMenuItem
             // 
             this.aboutNeoToolToolStripMenuItem.Name = "aboutNeoToolToolStripMenuItem";
-            this.aboutNeoToolToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.aboutNeoToolToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutNeoToolToolStripMenuItem.Text = "About NeoTool";
+            this.aboutNeoToolToolStripMenuItem.Click += new System.EventHandler(this.aboutNeoToolToolStripMenuItem_Click);
             // 
             // kryptonSplitContainer1
             // 
