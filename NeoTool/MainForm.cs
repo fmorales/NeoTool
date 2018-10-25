@@ -116,7 +116,7 @@ namespace NeoTool {
         }
 
         private void MainForm_Resize(object sender, EventArgs e) {
-            kryptonHeaderGroup1.Height = kryptonPanel2.Height - 114;
+            kryptonHeaderGroup1.Height = kryptonPanel2.Height - 87;
             //kryptonNavigator1.Width = this.Width - 216;
         }
 
@@ -355,10 +355,6 @@ namespace NeoTool {
             }
         }
 
-        private void kryptonButton1_Click(object sender, EventArgs e) {
-            MessageBox.Show("You cannot open files in other programs yet.", "Not Implemented", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        }
-
         private void newToolStripMenuItem_Click(object sender, EventArgs e) {
             api.username = kryptonComboBox1.Text;
             api.password = Settings.Default.Accounts.Find(x => x.username == kryptonComboBox1.Text).password;
@@ -395,11 +391,13 @@ namespace NeoTool {
 
         private void ToolStripToFCTB(object sender, EventArgs e) {
             if (kryptonNavigator1.Pages.Count != 0) {
-                if (sender == undoToolStripMenuItem) ((FastColoredTextBox)kryptonNavigator1.SelectedPage.Controls.Find("FastColoredTextBox", true)[0]).Undo();
-                else if (sender == redoToolStripMenuItem) ((FastColoredTextBox)kryptonNavigator1.SelectedPage.Controls.Find("FastColoredTextBox", true)[0]).Redo();
-                else if (sender == cutToolStripMenuItem) ((FastColoredTextBox)kryptonNavigator1.SelectedPage.Controls.Find("FastColoredTextBox", true)[0]).Cut();
-                else if (sender == copyToolStripMenuItem) ((FastColoredTextBox)kryptonNavigator1.SelectedPage.Controls.Find("FastColoredTextBox", true)[0]).Copy();
-                else if (sender == pasteToolStripMenuItem) ((FastColoredTextBox)kryptonNavigator1.SelectedPage.Controls.Find("FastColoredTextBox", true)[0]).Paste();
+                var fctb = ((FastColoredTextBox)kryptonNavigator1.SelectedPage.Controls.Find("FastColoredTextBox", true)[0]);
+
+                if (sender == undoToolStripMenuItem) fctb.Undo();
+                else if (sender == redoToolStripMenuItem) fctb.Redo();
+                else if (sender == cutToolStripMenuItem) fctb.Cut();
+                else if (sender == copyToolStripMenuItem) fctb.Copy();
+                else if (sender == pasteToolStripMenuItem) fctb.Paste();
             }
         }
     }
