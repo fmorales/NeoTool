@@ -246,19 +246,21 @@ namespace NeoTool {
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
-            FastColoredTextBox fctb = (FastColoredTextBox)kryptonNavigator1.SelectedPage.Controls.Find("FastColoredTextBox", true)[0];
+            if (kryptonNavigator1.Pages.Count > 0) {
+                FastColoredTextBox fctb = (FastColoredTextBox)kryptonNavigator1.SelectedPage.Controls.Find("FastColoredTextBox", true)[0];
 
-            Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Temp"));
-            File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Temp\\neotemp.html"), fctb.Text);
+                Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Temp"));
+                File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Temp\\neotemp.html"), fctb.Text);
 
-            api.username = ((FileData)kryptonNavigator1.SelectedPage.Tag).site;
-            api.password = Settings.Default.Accounts.Find(x => x.username == ((FileData)kryptonNavigator1.SelectedPage.Tag).site).password;
+                api.username = ((FileData)kryptonNavigator1.SelectedPage.Tag).site;
+                api.password = Settings.Default.Accounts.Find(x => x.username == ((FileData)kryptonNavigator1.SelectedPage.Tag).site).password;
 
-            api.Upload(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Temp\\neotemp.html"), ((FileData)kryptonNavigator1.SelectedPage.Tag).info.FilePath);
+                api.Upload(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Temp\\neotemp.html"), ((FileData)kryptonNavigator1.SelectedPage.Tag).info.FilePath);
 
-            ((FileData)kryptonNavigator1.SelectedPage.Tag).originalText = fctb.Text;
-            kryptonNavigator1.SelectedPage.Text = ((FileData)kryptonNavigator1.SelectedPage.Tag).originalTitle;
-            ((FileData)kryptonNavigator1.SelectedPage.Tag).modified = false;
+                ((FileData)kryptonNavigator1.SelectedPage.Tag).originalText = fctb.Text;
+                kryptonNavigator1.SelectedPage.Text = ((FileData)kryptonNavigator1.SelectedPage.Tag).originalTitle;
+                ((FileData)kryptonNavigator1.SelectedPage.Tag).modified = false;
+            }
         }
 
         private void kryptonButton2_Click(object sender, EventArgs e) {
