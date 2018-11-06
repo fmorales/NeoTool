@@ -16,26 +16,27 @@ namespace NeoTool {
         public API() {
             try {
                 Process.Start(new ProcessStartInfo("curl.exe")).Start();
-            } catch (Win32Exception e) {
+            } catch (Win32Exception) {
                 MessageBox.Show("NeoTool could not find curl.exe. Please make sure that curl.exe is in the same directory as NeoTool.", "Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(2);
             }
         }
 
         public void Upload(string localFilePath, string newFilePath) {
-            MakeRequest("upload", true, string.Format("-F \"{0}=@{1}\"", newFilePath.Replace('\\', '/'), localFilePath));
+            try { MakeRequest("upload", true, string.Format("-F \"{0}=@{1}\"", newFilePath.Replace('\\', '/'), localFilePath)); } catch (APIException e) { throw e; }
         }
 
         public void Delete(string filePath) {
-            MakeRequest("delete", true, string.Format("-d \"filenames[]={0}\"", filePath));
+            try { MakeRequest("delete", true, string.Format("-d \"filenames[]={0}\"", filePath)); } catch (APIException e) { throw e; }
         }
 
         public string GetFile(string filePath) {
-            ProcessStartInfo s = new ProcessStartInfo("curl.exe", string.Format("-k -s https://{0}.neocities.org/{1}", username, filePath));
-            s.CreateNoWindow = true;
-            s.UseShellExecute = false;
-            s.RedirectStandardOutput = true;
-            s.WindowStyle = ProcessWindowStyle.Hidden;
+            ProcessStartInfo s = new ProcessStartInfo("curl.exe", string.Format("-k -s https://{0}.neocities.org/{1}", username, filePath)) {
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                WindowStyle = ProcessWindowStyle.Hidden
+            };
             Process p = Process.Start(s);
             string str = p.StandardOutput.ReadToEnd();
             p.WaitForExit();
@@ -43,25 +44,26 @@ namespace NeoTool {
         }
 
         public List<APIFileInfo> GetFileInfos() {
-            APIResponse r = MakeRequest("list", true);
-            if (r == null) return null;
+            APIResponse r;
+            try { r = MakeRequest("list", true); } catch (APIException e) { throw e; }
 
             return r.Files;
         }
 
         public string GetKey() {
-            APIResponse r = MakeRequest("key", true);
-            if (r == null) return null;
+            APIResponse r;
+            try { r = MakeRequest("key", true); } catch (APIException e) { throw e; }
 
             return r.APIKey;
         }
 
         private APIResponse MakeRequest(string apiCall, bool useAuth, string extraArgs = "") {
-            ProcessStartInfo s = new ProcessStartInfo("curl.exe", string.Format("{0} -k -s {1} https://neocities.org/api/{2}", extraArgs, useAuth == true ? "-u " + username + ":" + password : "", apiCall));
-            s.CreateNoWindow = true;
-            s.UseShellExecute = false;
-            s.RedirectStandardOutput = true;
-            s.WindowStyle = ProcessWindowStyle.Hidden;
+            ProcessStartInfo s = new ProcessStartInfo("curl.exe", string.Format("{0} -k -s {1} https://neocities.org/api/{2}", extraArgs, useAuth == true ? "-u " + username + ":" + password : "", apiCall)) {
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                WindowStyle = ProcessWindowStyle.Hidden
+            };
             Process p = Process.Start(s);
             string str = p.StandardOutput.ReadToEnd();
             p.WaitForExit();
@@ -72,10 +74,14 @@ namespace NeoTool {
                 else if (r.ErrorType == "server_error") MessageBox.Show("Something went wrong on Neocities's end. Please try again later.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else if (r.ErrorType == "invalid_auth") MessageBox.Show("Inavlid username and/or password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                return null;
+                throw new APIException();
             }
             return r;
         }
+    }
+
+    public class APIException : Exception {
+        public override string Message => "Something went wrong with calling the NeoCities API.";
     }
 
     public class APIResponse {

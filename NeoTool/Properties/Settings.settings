@@ -2,8 +2,11 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="NeoTool.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Accounts" Type="Newtonsoft.Json.Linq.JObject" Scope="User">
+    <Setting Name="Accounts" Type="System.Collections.Generic.List&lt;AccountData&gt;" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="EditorWordWrap" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

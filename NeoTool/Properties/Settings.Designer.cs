@@ -33,5 +33,17 @@ namespace NeoTool.Properties {
                 this["Accounts"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EditorWordWrap {
+            get {
+                return ((bool)(this["EditorWordWrap"]));
+            }
+            set {
+                this["EditorWordWrap"] = value;
+            }
+        }
     }
 }

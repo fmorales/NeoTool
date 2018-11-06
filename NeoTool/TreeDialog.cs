@@ -56,10 +56,11 @@ namespace NeoTool {
                 lastNode = null;
             }
 
-            APIFileInfo afi = new APIFileInfo();
-            afi.FilePath = "";
-            afi.IsDirectory = true;
-            afi.Size = 0;
+            APIFileInfo afi = new APIFileInfo {
+                FilePath = "",
+                IsDirectory = true,
+                Size = 0
+            };
 
             kryptonTreeView1.Nodes[0].SelectedImageIndex = 1;
             kryptonTreeView1.Nodes[0].ImageIndex = 1;

@@ -53,10 +53,12 @@ namespace NeoTool {
                 api.username = login.kryptonTextBox1.Text;
                 api.password = login.kryptonTextBox2.Text;
                 
-                if (api.GetKey() == null) continue;
-                else {
+                try {
+                    api.GetKey();
                     Settings.Default.Accounts.Add(new AccountData(login.kryptonTextBox1.Text, login.kryptonTextBox2.Text));
                     break;
+                } catch (APIException) {
+                    continue;
                 }
             }
             Settings.Default.Save();
@@ -77,7 +79,9 @@ namespace NeoTool {
             Cursor.Current = Cursors.WaitCursor;
             kryptonTreeView1.Nodes.Clear();
 
-            List<APIFileInfo> files = api.GetFileInfos();
+            List<APIFileInfo> files;
+            try { files = api.GetFileInfos(); }
+            catch { Cursor.Current = Cursors.Default; return; }
 
             // thanks to https://stackoverflow.com/questions/1155977/
             TreeNode lastNode = null;
@@ -154,10 +158,11 @@ namespace NeoTool {
                 }
 
             Cursor.Current = Cursors.WaitCursor;
-            KryptonPage kp = new KryptonPage(node.Text, imageList1.Images[node.ImageIndex], api.username + "@" + ((FileData)node.Tag).info.FilePath);
-            kp.Tag = ((FileData)node.Tag);
+            KryptonPage kp = new KryptonPage(node.Text, imageList1.Images[node.ImageIndex], api.username + "@" + ((FileData)node.Tag).info.FilePath) {
+                Tag = ((FileData)node.Tag),
+                ToolTipTitle = $"Site: {api.username}\nPath: {((FileData)node.Tag).info.FilePath}"
+            };
             ((FileData)kp.Tag).originalTitle = kp.Text;
-            kp.ToolTipTitle = $"Site: {api.username}\nPath: {((FileData)node.Tag).info.FilePath}";
             kryptonNavigator1.Pages.Add(kp);
 
             FastColoredTextBox fctb = new FastColoredTextBox();
@@ -192,6 +197,11 @@ namespace NeoTool {
 
                 switch(result) {
                     case DialogResult.Yes:
+                        foreach (KryptonPage kp in kryptonNavigator1.Pages) {
+                            Cursor.Current = Cursors.WaitCursor;
+                            kryptonNavigator1.SelectedPage = kp;
+                            if (((FileData)kp.Tag).modified) saveAsToolStripMenuItem.PerformClick();
+                        }
                         return;
                     case DialogResult.No:
                         return;
@@ -208,6 +218,7 @@ namespace NeoTool {
 
                 switch (result) {
                     case DialogResult.Yes:
+                        saveAsToolStripMenuItem.PerformClick();
                         return;
                     case DialogResult.No:
                         return;
@@ -322,10 +333,11 @@ namespace NeoTool {
         private void importToolStripMenuItem_Click(object sender, EventArgs e) {
             if (kryptonComboBox1.Text == "") return;
 
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.CheckFileExists = true;
-            ofd.Multiselect = false;
-            ofd.Filter = "All allowed filetypes (*.html;*.htm;*.jpg;*.png;*.gif;*.svg;*.ico;*.md;*.markdown;*.js;*.json;*.geojson;*.css;*.txt;*.text;*.csv;*.tsv;*.xml;*.eot;*.ttf;*.woff;*.woff2;*.mid;*.midi)|*.html;*.htm;*.jpg;*.png;*.gif;*.svg;*.ico;*.md;*.markdown;*.js;*.json;*.geojson;*.css;*.txt;*.text;*.csv;*.tsv;*.xml;*.eot;*.ttf;*.woff;*.woff2;*.mid;*.midi";
+            OpenFileDialog ofd = new OpenFileDialog {
+                CheckFileExists = true,
+                Multiselect = false,
+                Filter = "All allowed filetypes (*.html;*.htm;*.jpg;*.png;*.gif;*.svg;*.ico;*.md;*.markdown;*.js;*.json;*.geojson;*.css;*.txt;*.text;*.csv;*.tsv;*.xml;*.eot;*.ttf;*.woff;*.woff2;*.mid;*.midi)|*.html;*.htm;*.jpg;*.png;*.gif;*.svg;*.ico;*.md;*.markdown;*.js;*.json;*.geojson;*.css;*.txt;*.text;*.csv;*.tsv;*.xml;*.eot;*.ttf;*.woff;*.woff2;*.mid;*.midi"
+            };
             DialogResult result = ofd.ShowDialog();
 
             api.username = kryptonComboBox1.Text;
