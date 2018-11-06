@@ -53,9 +53,9 @@
             // 
             this.kryptonLabel2.Location = new System.Drawing.Point(84, 29);
             this.kryptonLabel2.Name = "kryptonLabel2";
-            this.kryptonLabel2.Size = new System.Drawing.Size(71, 20);
+            this.kryptonLabel2.Size = new System.Drawing.Size(80, 20);
             this.kryptonLabel2.TabIndex = 2;
-            this.kryptonLabel2.Values.Text = "Version 1.1";
+            this.kryptonLabel2.Values.Text = "Version 1.1.1";
             // 
             // kryptonLabel3
             // 
@@ -79,8 +79,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(206)))), ((int)(((byte)(230)))));
             this.ClientSize = new System.Drawing.Size(272, 84);
-            this.Controls.Add(this.kryptonLinkLabel1);
             this.Controls.Add(this.kryptonLabel3);
+            this.Controls.Add(this.kryptonLinkLabel1);
             this.Controls.Add(this.kryptonLabel2);
             this.Controls.Add(this.kryptonLabel1);
             this.Controls.Add(this.pictureBox1);
