@@ -250,7 +250,7 @@ namespace NeoTool {
                 FastColoredTextBox fctb = (FastColoredTextBox)kryptonNavigator1.SelectedPage.Controls.Find("FastColoredTextBox", true)[0];
 
                 Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Temp"));
-                File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Temp\\neotemp.html"), fctb.Text);
+                File.WriteAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Temp\\neotemp.html"), fctb.Text, Encoding.Unicode);
 
                 api.username = ((FileData)kryptonNavigator1.SelectedPage.Tag).site;
                 api.password = Settings.Default.Accounts.Find(x => x.username == ((FileData)kryptonNavigator1.SelectedPage.Tag).site).password;

@@ -55,7 +55,7 @@
             this.kryptonLabel2.Name = "kryptonLabel2";
             this.kryptonLabel2.Size = new System.Drawing.Size(80, 20);
             this.kryptonLabel2.TabIndex = 2;
-            this.kryptonLabel2.Values.Text = "Version 1.1.1";
+            this.kryptonLabel2.Values.Text = "Version 1.1.2";
             // 
             // kryptonLabel3
             // 
